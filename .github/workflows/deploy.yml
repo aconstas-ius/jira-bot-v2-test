@@ -27,15 +27,21 @@ jobs:
 
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-      
+
     defaults:
       run:
         working-directory: chatbot-v4-jira-bot
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
+        # also optional: add the env here if it’s a JS action
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
       - name: Deploy bundle
         run: databricks bundle deploy --target dev
@@ -84,10 +90,16 @@ jobs:
       run:
         working-directory: chatbot-v4-jira-bot
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
+        # also optional: add the env here if it’s a JS action
+        env:
+          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
       - name: Deploy bundle
         run: databricks bundle deploy --target prod
